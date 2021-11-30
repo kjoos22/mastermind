@@ -12,7 +12,7 @@ class Mastermind < Gosu::Window
     end
 
     def draw
-        @font.draw_text(RandomAPI.random_integer, 10, 10, 1, 1.0, 1.0)
+        @font.draw_text(Random.random_integer, 10, 10, 1, 1.0, 1.0)
     end
 
 end
