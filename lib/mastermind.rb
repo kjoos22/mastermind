@@ -42,8 +42,8 @@ class Mastermind
     end
 
     def self.play_game
-        code = Random.random_integer
-        print code
+        game = Game.new
+        
     end
 
 end
