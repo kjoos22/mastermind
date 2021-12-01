@@ -7,7 +7,7 @@ class Mastermind
         Mastermind.main_menu
     end
 
-    def self.get_input 
+    def self.get_input
         input = gets.chomp        
         if input == "EXIT" 
             Mastermind.talk("\nThank you for playing with me! Come back soon!")
@@ -25,6 +25,7 @@ class Mastermind
         option = Mastermind.get_input
         case option
             when "1"
+                @game = Game.new
                 Mastermind.play_game
             else
                 system("clear")
@@ -42,8 +43,22 @@ class Mastermind
     end
 
     def self.play_game
-        game = Game.new
-        
+        Mastermind.talk("Enter a guess: ")
+        @game.check_guess(Mastermind.get_input)
+    end
+
+    def self.check_guess(guess)
+        if guess == @game.code.join
+            puts "YOU WIN!"
+        else
+            @game.guesses[:"#{@game.round}"] = guess
+            @game.round += 1
+        end
+        if @game.round > 10
+            puts "GAME OVER!"
+        else
+            Mastermind.play_game
+        end
     end
 
 end
