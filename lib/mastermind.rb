@@ -10,11 +10,7 @@ class Mastermind
     def self.get_input 
         input = gets.chomp        
         if input == "EXIT" 
-            for char in "\nThank you for playing Mastermind! Come back soon!"
-                    .split("") do
-                print char
-                sleep(0.05)
-            end
+            Mastermind.talk("\nThank you for playing with me! Come back soon!")
             puts ""
             exit
         end
@@ -24,6 +20,7 @@ class Mastermind
     def self.main_menu
         puts "\n---Main Menu---"
         puts "1. Play Game\n2. Future Options"
+        print "\nEnter 'EXIT' at anytime to quit.\n"
         print "\nEnter an option #: "
         option = Mastermind.get_input
         case option
@@ -39,13 +36,14 @@ class Mastermind
     def self.talk(message)
         for char in message.split("") do
             print char.green.bold
-            sleep(0.05)
+            sleep(0.04)
         end
         puts ""
     end
 
     def self.play_game
-        puts "PLAYING"
+        code = Random.random_integer
+        print code
     end
 
 end
