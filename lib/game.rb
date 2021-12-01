@@ -9,6 +9,7 @@ class Game
     end
 
     def check_guess(guess)
+        validate_guess(guess)
         if guess == @code.join
             puts "YOU WIN!"
         else
@@ -21,5 +22,17 @@ class Game
             Mastermind.play_game
         end
     end
+
+    def validate_guess(guess)
+        if guess.length != 4 || !numeric?(guess)
+            Mastermind.talk("Invalid guess, try again: ")
+            check_guess(Mastermind.get_input)
+        end      
+    end
+
+    def numeric?(guess)
+        Float(guess) != nil rescue false
+    end
+
 
 end
