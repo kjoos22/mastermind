@@ -15,7 +15,7 @@ class Mastermind
                 print char
                 sleep(0.05)
             end
-            puts""
+            puts ""
             exit
         end
         input
@@ -24,19 +24,29 @@ class Mastermind
     def self.main_menu
         puts "\n---Main Menu---"
         puts "1. Play Game\n2. Future Options"
-        print "\nSelect an option: "
+        print "\nEnter an option #: "
         option = Mastermind.get_input
+        case option
+            when "1"
+                Mastermind.play_game
+            else
+                system("clear")
+                Mastermind.talk("That is not a valid option, try again.")
+                Mastermind.main_menu
+        end
     end
 
     def self.talk(message)
         for char in message.split("") do
-            print char.light_green
+            print char.green.bold
             sleep(0.05)
         end
         puts ""
     end
 
-
+    def self.play_game
+        puts "PLAYING"
+    end
 
 end
 
