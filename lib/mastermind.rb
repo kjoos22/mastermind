@@ -1,41 +1,41 @@
-##Potential GUI component
-
-# require "gosu"
-
-# class Mastermind < Gosu::Window
-#     def initialize
-#         super 640, 480
-#         self.caption = "Mastermind"
-#         @font = Gosu::Font.new(20)
-#     end
-
-#     def update
-        
-#     end
-
-#     def draw
-#         #render new random code
-#         #@font.draw_text(Random.random_integer, 10, 10, 1, 1.0, 1.0)
-#     end
-
-# end
-
 class Mastermind
 
-    def start
+    def start 
         system("clear")
-        puts "Welcome to Mastermind!"
-        Mastermind.get_input
+        Mastermind.talk("Welcome, I am the Mastermind!")
+        Mastermind.talk("Have you come to challenge me?")
+        Mastermind.main_menu
     end
 
-    def self.get_input
-        input = gets.chomp
-        if input == "EXIT"
-            puts "\nThank you for playing Mastermind! Come back soon!"
+    def self.get_input 
+        input = gets.chomp        
+        if input == "EXIT" 
+            for char in "\nThank you for playing Mastermind! Come back soon!"
+                    .split("") do
+                print char
+                sleep(0.05)
+            end
+            puts""
             exit
         end
         input
     end
+
+    def self.main_menu
+        puts "\n---Main Menu---"
+        puts "1. Play Game\n2. Future Options"
+        print "\nSelect an option: "
+        option = Mastermind.get_input
+    end
+
+    def self.talk(message)
+        for char in message.split("") do
+            print char.light_green
+            sleep(0.05)
+        end
+        puts ""
+    end
+
 
 
 end
