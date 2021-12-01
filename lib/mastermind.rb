@@ -47,19 +47,6 @@ class Mastermind
         @game.check_guess(Mastermind.get_input)
     end
 
-    def self.check_guess(guess)
-        if guess == @game.code.join
-            puts "YOU WIN!"
-        else
-            @game.guesses[:"#{@game.round}"] = guess
-            @game.round += 1
-        end
-        if @game.round > 10
-            puts "GAME OVER!"
-        else
-            Mastermind.play_game
-        end
-    end
 
 end
 
