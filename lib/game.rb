@@ -20,8 +20,11 @@ class Game
         else
             feedback = get_feedback(guess)
             @feedback[@round] = feedback
-            Mastermind.talk("Correct digits: #{@feedback[@round][:correct_digits]}")
-            Mastermind.talk("Correct digits in correct locations: #{@feedback[@round][:correct_locations]}")            
+            Mastermind.talk(
+                "Correct digits: #{@feedback[@round][:correct_digits]}")
+            Mastermind.talk(
+                "Correctly located digits: " +
+                "#{@feedback[@round][:correct_locations]}")            
             @guesses[@round] = guess
             @round += 1
         end
@@ -54,7 +57,12 @@ class Game
             Mastermind.talk("No previous guesses.")
         end
         @guesses.each do |guess|
-            Mastermind.talk("Round #{guess[0]}: #{guess[1]}")
+            Mastermind.talk("Round #{guess[0]}: #{guess[1]} | ", false)
+            Mastermind.talk(
+                "Correct digits: #{@feedback[guess[0]][:correct_digits]}", false)
+            Mastermind.talk(
+                " | Correctly located digits: " +
+                "#{@feedback[guess[0]][:correct_locations]}") 
         end
         puts ""        
     end
