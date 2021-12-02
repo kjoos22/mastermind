@@ -34,16 +34,19 @@ class Mastermind
         end
     end
 
-    def self.talk(message)
+    def self.talk(message, linebreak = true)
         for char in message.split("") do
             print char.green.bold
             sleep(0.04)
         end
-        puts ""
+        if(linebreak == true)
+            puts ""
+        end
     end
 
     def self.play_game
-        Mastermind.talk("Enter a guess: ")
+        Mastermind.talk("Round #{@game.round} of 10!")
+        Mastermind.talk("Enter a guess: ", false)
         @game.check_guess(Mastermind.get_input)
     end
 
