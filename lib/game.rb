@@ -76,12 +76,21 @@ class Game
                         correct_locations += 1
                         total_digits[num] -= 1
                     end
-                elsif total_digits[num] > 0
-                        correct_digits += 1
-                        total_digits[num] -= 1
+                # elsif total_digits[num] > 0
+                #         correct_digits += 1
+                #         total_digits[num] -= 1
                 end
             end
         end
+        guess.split("").each do |num|
+            binding.pry
+            if @code.include?(num) && total_digits[num] > 0
+                correct_digits += 1
+                total_digits[num] -= 1
+            end
+        end
+
+
         feedback = {correct_digits: correct_digits,
                     correct_locations: correct_locations}
     end
