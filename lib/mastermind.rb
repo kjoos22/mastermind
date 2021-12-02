@@ -8,7 +8,8 @@ class Mastermind
     end
 
     def self.get_input
-        input = gets.chomp        
+        input = gets.chomp
+        system("clear")        
         if input == "EXIT" 
             Mastermind.talk("\nThank you for playing with me! Come back soon!")
             puts ""
@@ -45,9 +46,8 @@ class Mastermind
     end
 
     def self.play_game
-        Mastermind.talk("Round #{@game.round} of 10!")
-        Mastermind.talk("Enter G to see previous guesses.")
-        Mastermind.talk("Enter a guess: ", false)
+        Mastermind.talk("This is round #{@game.round} of 10!\n")
+        Mastermind.talk("Enter a guess, or G to review your guesses: ", false)
         @game.check_guess(Mastermind.get_input)
     end
 
