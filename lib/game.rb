@@ -18,7 +18,10 @@ class Game
         if guess == @code.join
             puts "YOU WIN!"
         else
-            #get_feedback(guess)
+            feedback = get_feedback(guess)
+            @feedback[@round] = feedback
+            Mastermind.talk("Correct digits: #{@feedback[@round][:correct_digits]}")
+            Mastermind.talk("Correct digits in correct locations: #{@feedback[@round][:correct_locations]}")            
             @guesses[@round] = guess
             @round += 1
         end
@@ -58,10 +61,29 @@ class Game
 
     def get_feedback(guess)
         correct_digits = 0
-        correctly_located_digits = 0
-        guess.split("").each_with_index do |num, index|
-            binding.pry
+        correct_locations = 0
+        total_digits = {}
+        guess.split("").each do |num|
+            total_digits[num] = @code.count(num)
         end
+        guess.split("").each_with_index do |num, index|
+            
+            if @code.index(num) == nil
+                next
+            else
+                if @code.each_index.select{|index| @code[index] == num}.include? index
+                    if total_digits[num] > 0
+                        correct_locations += 1
+                        total_digits[num] -= 1
+                    end
+                elsif total_digits[num] > 0
+                        correct_digits += 1
+                        total_digits[num] -= 1
+                end
+            end
+        end
+        feedback = {correct_digits: correct_digits,
+                    correct_locations: correct_locations}
     end
 
 

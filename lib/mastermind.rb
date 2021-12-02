@@ -46,6 +46,7 @@ class Mastermind
     end
 
     def self.play_game
+        Mastermind.talk("CODE: #{@game.code}")
         Mastermind.talk("This is round #{@game.round} of 10!\n")
         Mastermind.talk("Enter a guess, or G to review your guesses: ", false)
         @game.check_guess(Mastermind.get_input)
