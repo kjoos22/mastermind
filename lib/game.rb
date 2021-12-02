@@ -66,8 +66,16 @@ class Game
         guess.split("").each do |num|
             total_digits[num] = @code.count(num)
         end
-        guess.split("").each_with_index do |num, index|
-            
+        correct_locations, total_digits = 
+            location_feedback(guess, correct_locations, total_digits)
+        correct_digits, total_digits = 
+            digit_feedback(guess, correct_digits, total_digits)
+        feedback = {correct_digits: correct_digits,
+                    correct_locations: correct_locations}
+    end
+
+    def location_feedback(guess, correct_locations, total_digits)
+        guess.split("").each_with_index do |num, index|            
             if @code.index(num) == nil
                 next
             else
@@ -76,24 +84,20 @@ class Game
                         correct_locations += 1
                         total_digits[num] -= 1
                     end
-                # elsif total_digits[num] > 0
-                #         correct_digits += 1
-                #         total_digits[num] -= 1
                 end
             end
         end
+        return correct_locations, total_digits
+    end
+
+    def digit_feedback(guess, correct_digits, total_digits)
         guess.split("").each do |num|
-            binding.pry
             if @code.include?(num) && total_digits[num] > 0
                 correct_digits += 1
                 total_digits[num] -= 1
             end
         end
-
-
-        feedback = {correct_digits: correct_digits,
-                    correct_locations: correct_locations}
+        return correct_digits, total_digits
     end
-
 
 end
