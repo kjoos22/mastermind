@@ -9,12 +9,17 @@ class Game
     end
 
     def check_guess(guess)
+        if guess == "G"
+            @guesses.each do |guess|
+                Mastermind.talk("In round #{guess[0]} you guessed #{guess[1]}.")
+            end
+        end
         validate_guess(guess)
         if guess == @code.join
             puts "YOU WIN!"
         else
             #get_feedback(guess)
-            @guesses[:"#{@round}"] = guess
+            @guesses["#{@round}"] = guess
             @round += 1
         end
         if @round > 10
@@ -26,13 +31,14 @@ class Game
 
     def validate_guess(guess)
         if guess.length != 4 || !numeric?(guess)
-            Mastermind.talk("Guesses must be 4 digit numbers, try again: ",
+            Mastermind.talk("Guesses must be 4 digits, 0-7, try again: ",
                 false)
             check_guess(Mastermind.get_input)
         end
         guess.split("").each do |num|
             if num.to_i > 7
-                Mastermind.talk("Acceptable digits are 0-7, try again: ", false)
+                Mastermind.talk("Guesses must be 4 digits, 0-7, try again: ", 
+                false)
                 check_guess(Mastermind.get_input)
             end
         end
