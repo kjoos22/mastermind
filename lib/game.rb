@@ -20,19 +20,20 @@ class Game
         else
             feedback = get_feedback(guess)
             @feedback[@round] = feedback
-            Mastermind.talk(
-                "Correct digits: #{@feedback[@round][:correct_digits]}")
-            Mastermind.talk(
-                "Correctly located digits: " +
-                "#{@feedback[@round][:correct_locations]}")            
             @guesses[@round] = guess
             @round += 1
+            if @round > 10
+                Mastermind.talk("GAME OVER!")
+                Mastermind.talk("Would you like to try again?")
+                Mastermind.main_menu
+            end
+            Mastermind.talk(
+                "Correct digits: #{@feedback[@round - 1][:correct_digits]}")
+            Mastermind.talk(
+                "Correctly located digits: " +
+                "#{@feedback[@round - 1][:correct_locations]}")            
         end
-        if @round > 10
-            puts "GAME OVER!"
-        else
-            Mastermind.play_game
-        end
+        Mastermind.play_game
     end
 
     def validate_guess(guess)
@@ -73,6 +74,9 @@ class Game
         total_digits = {}
         guess.split("").each do |num|
             total_digits[num] = @code.count(num)
+            if total_digits[num] > guess.count(num)
+                total_digits[num] = guess.count(num)
+            end
         end
         correct_locations, total_digits = 
             location_feedback(guess, correct_locations, total_digits)
@@ -88,7 +92,7 @@ class Game
                 next
             else
                 if @code.each_index.select{|index| @code[index] == num}.include? index
-                    if total_digits[num] > 0
+                    if total_digits[num] > 0                       
                         correct_locations += 1
                         total_digits[num] -= 1
                     end
