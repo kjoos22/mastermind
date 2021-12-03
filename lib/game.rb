@@ -15,23 +15,14 @@ class Game
         else
             validate_guess(guess)
         end
+        @guesses[@round] = guess
         if guess == @code.join
-            puts "YOU WIN!"
+            Mastermind.talk("CONGRATULATIONS, YOU WIN!")
+            Mastermind.talk("Would you like to play again?")
+            Mastermind.main_menu
         else
-            feedback = get_feedback(guess)
-            @feedback[@round] = feedback
-            @guesses[@round] = guess
-            @round += 1
-            if @round > 10
-                Mastermind.talk("GAME OVER!")
-                Mastermind.talk("Would you like to try again?")
-                Mastermind.main_menu
-            end
-            Mastermind.talk(
-                "Correct digits: #{@feedback[@round - 1][:correct_digits]}")
-            Mastermind.talk(
-                "Correctly located digits: " +
-                "#{@feedback[@round - 1][:correct_locations]}")            
+            get_feedback(guess)
+            provide_feedback()
         end
         Mastermind.play_game
     end
@@ -60,7 +51,7 @@ class Game
         @guesses.each do |guess|
             Mastermind.talk("Round #{guess[0]}: #{guess[1]} | ", false)
             Mastermind.talk(
-                "Correct digits: #{@feedback[guess[0]][:correct_digits]}", false)
+                "Correct digits: #{@feedback[guess[0]][:correct_digits]}",false)
             Mastermind.talk(
                 " | Correctly located digits: " +
                 "#{@feedback[guess[0]][:correct_locations]}") 
@@ -82,20 +73,20 @@ class Game
             location_feedback(guess, correct_locations, total_digits)
         correct_digits, total_digits = 
             digit_feedback(guess, correct_digits, total_digits)
-        feedback = {correct_digits: correct_digits,
+        @feedback[@round] = {correct_digits: correct_digits,
                     correct_locations: correct_locations}
+        @round += 1
     end
 
     def location_feedback(guess, correct_locations, total_digits)
         guess.split("").each_with_index do |num, index|            
             if @code.index(num) == nil
                 next
-            else
-                if @code.each_index.select{|index| @code[index] == num}.include? index
-                    if total_digits[num] > 0                       
-                        correct_locations += 1
-                        total_digits[num] -= 1
-                    end
+            end
+            if @code.each_index.select{|index| @code[index]==num}.include? index
+                if total_digits[num] > 0                       
+                    correct_locations += 1
+                    total_digits[num] -= 1
                 end
             end
         end
@@ -110,6 +101,20 @@ class Game
             end
         end
         return correct_digits, total_digits
+    end
+
+    def provide_feedback
+        if @round > 10
+            Mastermind.talk("GAME OVER!")
+            Mastermind.talk("Would you like to play again?")
+            Mastermind.main_menu
+        end
+        Mastermind.talk("You guessed: #{@guesses[@round - 1]}")
+        Mastermind.talk(
+            "Correct digits: #{@feedback[@round - 1][:correct_digits]}")
+        Mastermind.talk(
+            "Correctly located digits: " +
+            "#{@feedback[@round - 1][:correct_locations]}")
     end
 
 end
