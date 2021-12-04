@@ -11,7 +11,7 @@ class Mastermind
         input = gets.chomp
         system("clear")        
         if input == "EXIT" 
-            Mastermind.talk("\nThank you for playing with me! Come back soon!")
+            Mastermind.talk("Thank you for playing with me! Come back soon!")
             puts ""
             exit
         end
@@ -26,8 +26,7 @@ class Mastermind
         option = Mastermind.get_input
         case option
             when "1"
-                @game = Game.new
-                Mastermind.play_game
+                Mastermind.difficulty_menu
             else
                 system("clear")
                 Mastermind.talk("That is not a valid option, try again.")
@@ -47,11 +46,31 @@ class Mastermind
 
     def self.play_game
         Mastermind.talk("CODE: #{@game.code}")
-        Mastermind.talk("This is round #{@game.round} of 10!\n")
+        Mastermind.talk("Round #{@game.round} of 10!\n")
         Mastermind.talk("Enter a guess, or G to review your guesses: ", false)
         @game.check_guess(Mastermind.get_input)
     end
 
+    def self.learn_game
+        ###############################
+        # TODO: Add game instructions #
+        ###############################
+    end
+
+    def self.difficulty_menu
+        Mastermind.talk("1. Easy\n2. Medium\n3. Hard\n")
+        Mastermind.talk("Enter a difficulty #: ", false)
+        difficulty = Mastermind.get_input
+        case difficulty
+            when "1", "2", "3"
+                @game = Game.new(difficulty.to_i)
+            else
+                system("clear")
+                Mastermind.talk("That is not a valid difficulty, try again.")
+                Mastermind.difficulty_menu
+            end
+        Mastermind.play_game        
+    end
 
 end
 

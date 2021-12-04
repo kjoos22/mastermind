@@ -1,9 +1,11 @@
 class Game
-    attr_accessor :round, :code, :guesses, :feedback
+    attr_accessor :round, :code, :guesses, :feedback, :difficulty
 
-    def initialize
+    @@num_rounds = {1 => 8, 2 => 10, 3 => 12}
+    def initialize(difficulty)
+        @difficulty = difficulty
         @round = 1
-        @code = Random.random_integer
+        @code = Random.random_integer(difficulty)
         @guesses = {}
         @feedback = {}
     end
@@ -53,7 +55,7 @@ class Game
             Mastermind.talk(
                 "Correct digits: #{@feedback[guess[0]][:correct_digits]}",false)
             Mastermind.talk(
-                " | Correctly located digits: " +
+                " | Correctly located digits: "\
                 "#{@feedback[guess[0]][:correct_locations]}") 
         end
         puts ""        
@@ -104,8 +106,9 @@ class Game
     end
 
     def provide_feedback
-        if @round > 10
+        if @round > @@num_rounds[@difficulty]
             Mastermind.talk("GAME OVER!")
+            Mastermind.talk("The code was: #{@code.join}")
             Mastermind.talk("Would you like to play again?")
             Mastermind.main_menu
         end
@@ -114,7 +117,7 @@ class Game
             "Correct digits: #{@feedback[@round - 1][:correct_digits]}")
         Mastermind.talk(
             "Correctly located digits: " +
-            "#{@feedback[@round - 1][:correct_locations]}")
+            "#{@feedback[@round - 1][:correct_locations]}\n")
     end
 
 end

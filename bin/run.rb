@@ -1,4 +1,3 @@
 require_relative '../environment.rb'
 
-mm = Mastermind.new
-mm.start
+Mastermind.new.start
