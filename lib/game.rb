@@ -2,6 +2,8 @@ class Game
     attr_accessor :round, :code, :guesses, :feedback, :difficulty
 
     @@num_rounds = {1 => 8, 2 => 10, 3 => 12}
+    @@num_digits = {1 => 3, 2 => 4, 3 => 5}
+
     def initialize(difficulty)
         @difficulty = difficulty
         @round = 1
@@ -30,8 +32,9 @@ class Game
     end
 
     def validate_guess(guess)
-        if guess.length != 4 || !numeric?(guess)
-            Mastermind.talk("Guesses must be 4 digits, 0-7, try again.")
+        if guess.length != @@num_digits[@difficulty] || !numeric?(guess)
+            Mastermind.talk("Guesses must be #{@@num_digits[@difficulty]}"\
+                " digits, 0-7, try again.")
             Mastermind.play_game
         end
         guess.split("").each do |num|
@@ -118,6 +121,10 @@ class Game
         Mastermind.talk(
             "Correctly located digits: " +
             "#{@feedback[@round - 1][:correct_locations]}\n")
+    end
+
+    def self.num_rounds
+        @@num_rounds
     end
 
 end
