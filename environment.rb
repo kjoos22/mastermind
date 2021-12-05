@@ -2,6 +2,7 @@ require_relative "./lib/mastermind.rb"
 require_relative "./lib/random.rb"
 require_relative "./lib/game.rb"
 require_relative "./lib/game_api.rb"
+require_relative "./lib/player.rb"
 
 require "net/http"
 require "pry"
