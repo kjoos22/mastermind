@@ -20,13 +20,16 @@ class Mastermind
 
     def self.main_menu
         Mastermind.talk("\n---Main Menu---")
-        Mastermind.talk("1. Play Game\n2. Future Options")
+        Mastermind.talk("1. Play Game\n2. Learn to Play\n3. Player Menu")
         Mastermind.talk("\nEnter 'EXIT' at anytime to quit.")
         Mastermind.talk("\nEnter an option #: ", false)
-        option = Mastermind.get_input
-        case option
+        case Mastermind.get_input
             when "1"
                 Mastermind.difficulty_menu
+            when "2"
+                Mastermind.learn_game
+            when "3"
+                Mastermind.player_menu
             else
                 system("clear")
                 Mastermind.talk("That is not a valid option, try again.")
@@ -53,6 +56,9 @@ class Mastermind
     end
 
     def self.learn_game
+        system("clear")
+        Mastermind.talk("Lorem Ipsum")
+        Mastermind.main_menu
         ###############################
         # TODO: Add game instructions #
         ###############################
@@ -63,8 +69,7 @@ class Mastermind
         Mastermind.talk("---Difficulty Select---")
         Mastermind.talk("1. Easy\n2. Medium\n3. Hard\n")
         Mastermind.talk("Enter a difficulty #: ", false)
-        difficulty = Mastermind.get_input
-        case difficulty
+        case Mastermind.get_input
             when "1", "2", "3"
                 @game = Game.new(difficulty.to_i)
             else
@@ -73,6 +78,14 @@ class Mastermind
                 Mastermind.difficulty_menu
             end
         Mastermind.play_game        
+    end
+
+    def self.player_menu
+        system("clear")
+        Mastermind.talk("---Player Menu---")
+        Mastermind.talk("1. Sign Up")
+        Mastermind.talk("\nEnter an option #: ", false)
+
     end
 
 end
