@@ -1,7 +1,9 @@
 class PlayersController < ApplicationController
     def create
         player = Player.new(player_params)
-        if player.save
+        player.mm_points = 0
+        player.wins = 0
+        if player.save            
             render json: PlayerSerializer.new(player)
         else
             render json: {error: "Failed to save"}
