@@ -19,10 +19,10 @@ class Mastermind
     end
 
     def self.main_menu
-        puts "\n---Main Menu---"
-        puts "1. Play Game\n2. Future Options"
-        print "\nEnter 'EXIT' at anytime to quit.\n"
-        print "\nEnter an option #: "
+        Mastermind.talk("\n---Main Menu---")
+        Mastermind.talk("1. Play Game\n2. Future Options")
+        Mastermind.talk("\nEnter 'EXIT' at anytime to quit.")
+        Mastermind.talk("\nEnter an option #: ", false)
         option = Mastermind.get_input
         case option
             when "1"
@@ -59,6 +59,8 @@ class Mastermind
     end
 
     def self.difficulty_menu
+        system("clear")
+        Mastermind.talk("---Difficulty Select---")
         Mastermind.talk("1. Easy\n2. Medium\n3. Hard\n")
         Mastermind.talk("Enter a difficulty #: ", false)
         difficulty = Mastermind.get_input
