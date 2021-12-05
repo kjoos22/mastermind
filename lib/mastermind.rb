@@ -85,7 +85,16 @@ class Mastermind
         Mastermind.talk("---Player Menu---")
         Mastermind.talk("1. Sign Up")
         Mastermind.talk("\nEnter an option #: ", false)
-
+        case Mastermind.get_input
+            when "1"
+                # puts "Enter player name: "
+                # name = Mastermind.get_input
+                # puts "Enter password: "
+                # password = Mastermind.get_input
+                # binding.pry
+                puts GameAPI.show_players
+            else
+        end
     end
 
 end
