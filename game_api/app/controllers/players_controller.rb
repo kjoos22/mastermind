@@ -27,6 +27,17 @@ class PlayersController < ApplicationController
         end
     end
 
+    def update_stats
+        player = Player.find_by(name: params[:name])
+        player.mm_points = params[:mm_points]
+        player.wins += 1
+        if player.save
+            render json: {response: "Stats updated"}
+        else
+            render json: {response: "Failed to update"}
+        end
+    end
+
     private
     def player_params
         params.require(:player).permit(:name, :password)

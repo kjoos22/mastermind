@@ -38,8 +38,9 @@ class Player
         Mastermind.player_menu
     end
 
-    def update_stats(difficulty, round)
-        binding.pry
-
+    def update_stats(points)
+        $player.wins += 1
+        $player.mm_points += points
+        GameAPI.update_player_stats
     end
 end

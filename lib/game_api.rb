@@ -47,4 +47,14 @@ class GameAPI
         end
     end
 
+    def self.update_player_stats
+        uri = URI("http://127.0.0.1:3000/players/update_stats")
+        req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
+        req.body = {"name" => "#{$player.name}",
+                                 "mm_points" => $player.mm_points}.to_json
+        res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(req)
+        end
+    end
+
 end
