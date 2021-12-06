@@ -1,6 +1,7 @@
 class Mastermind
 
-    def start 
+    def start
+        $player = nil
         system("clear")
         Mastermind.talk("Welcome, I am the Mastermind!")
         Mastermind.talk("Have you come to challenge me?")
@@ -65,7 +66,6 @@ class Mastermind
     end
 
     def self.difficulty_menu
-        system("clear")
         Mastermind.talk("---Difficulty Select---")
         Mastermind.talk("1. Easy\n2. Medium\n3. Hard\n")
         Mastermind.talk("Enter a difficulty #: ", false)
@@ -74,23 +74,34 @@ class Mastermind
                 @game = Game.new(difficulty.to_i)
             else
                 system("clear")
-                Mastermind.talk("That is not a valid difficulty, try again.")
+                Mastermind.talk("That is not a valid difficulty, try again.\n")
                 Mastermind.difficulty_menu
             end
         Mastermind.play_game        
     end
 
     def self.player_menu
-        system("clear")
         Mastermind.talk("---Player Menu---")
-        Mastermind.talk("1. Sign Up")
-        Mastermind.talk("\nEnter an option #: ", false)
-        case Mastermind.get_input
+        if !$player
+            Mastermind.talk("1. Sign Up")
+            Mastermind.talk("2. Sign In")
+            Mastermind.talk("\nEnter an option #: ", false)
+            case Mastermind.get_input
             when "1"
                 Player.sign_up
-                
-                puts GameAPI.show_players
+            when "2"
+                Player.sign_in
             else
+                Mastermind.talk("That is not a valid option, try again.\n")
+                Mastermind.player_menu()
+        else
+            Mastermind.talk("1. Player stats")
+            Mastermind.talk("2. Sign Out")
+            Mastermind.talk("\nEnter an option #: ", false)
+            case Mastermind.get_input
+        end
+        
+        
         end
     end
 

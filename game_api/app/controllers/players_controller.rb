@@ -15,6 +15,18 @@ class PlayersController < ApplicationController
         render json: PlayerSerializer.new(players)
     end
 
+    def login
+        player = Player.find_by(name: params[:name])
+        if player && player.authenticate(params[:password])
+            render json: {response: "Logged in", player: 
+                {name: player.name, mm_points: player.mm_points, wins: player.wins}}
+        elsif player && !player.authenticate(params[:password])
+            render json: {response: "Incorrect password"}
+        else
+            render json: {response: "Player not found"}
+        end
+    end
+
     private
     def player_params
         params.require(:player).permit(:name, :password)
