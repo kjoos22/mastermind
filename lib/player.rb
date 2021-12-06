@@ -31,6 +31,20 @@ class Player
         Mastermind.player_menu
     end
 
+    def self.leaderboard
+        players = GameAPI.show_players
+        Mastermind.talk("---Top 5 Minds---")
+        x = 1
+        players = players[0..4]
+        players.each do |player|
+            Mastermind.talk("#{x}. #{player["attributes"]["name"]} - "\
+                "#{player["attributes"]["mm_points"]} points.")
+            x += 1
+        end
+        puts ""
+        Mastermind.player_menu
+    end
+
     def stats
         Mastermind.talk("#{$player.name},") 
         Mastermind.talk("You have won #{$player.wins} games!")

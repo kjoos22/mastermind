@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
     end
 
     def index
-        players = Player.all
+        players = Player.all.order(mm_points: :desc)
         render json: PlayerSerializer.new(players)
     end
 
