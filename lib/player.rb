@@ -32,9 +32,10 @@ class Player
     end
 
     def stats
-        Mastermind.talk("#{$player.name}, you have "\
-                        "won #{$player.wins} games, "\
-                        "earning #{$player.mm_points} Mastermind points!\n")
+        Mastermind.talk("#{$player.name},") 
+        Mastermind.talk("You have won #{$player.wins} games!")
+        Mastermind.talk("You have earned #{$player.mm_points} Mastermind points!")
+        Mastermind.talk("Your rank is #{$player.get_rank}!\n")
         Mastermind.player_menu
     end
 
@@ -42,5 +43,18 @@ class Player
         $player.wins += 1
         $player.mm_points += points
         GameAPI.update_player_stats
+    end
+
+    def get_rank
+        case $player.mm_points
+            when 0..9
+                "Feeblemind"
+            when 10..49
+                "Averagemind"
+            when 50..99
+                "Strongmind"
+            else
+                "Mastermind"
+        end
     end
 end
