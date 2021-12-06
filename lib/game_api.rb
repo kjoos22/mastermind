@@ -34,15 +34,15 @@ class GameAPI
         end
         res = JSON.parse(res.body)
         if res["response"] == "Logged in"
-            Mastermind.talk("Logged in\n")
             name = res["player"]["name"]
             wins = res["player"]["wins"]
             mm_points = res["player"]["mm_points"]
             $player = Player.new(name, wins, mm_points)
+            Mastermind.talk("Welcome back, #{name}!\n")
             Mastermind.player_menu
-        elsif res["response"] == "Incorrect password"
+        elsif res["response"] == "Incorrect password."
             Mastermind.talk("Incorrect password")
-        elsif res["response"] == "Player not found"
+        elsif res["response"] == "Player not found."
             Mastermind.talk("Player not found")
         end
     end

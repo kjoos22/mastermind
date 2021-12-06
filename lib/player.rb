@@ -24,4 +24,10 @@ class Player
         GameAPI.login(name, password)
         Mastermind.player_menu
     end
+
+    def self.sign_out
+        Mastermind.talk("Goodbye, #{$player.name}!\n")
+        $player = nil
+        Mastermind.player_menu
+    end
 end

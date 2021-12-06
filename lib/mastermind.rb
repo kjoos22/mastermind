@@ -87,21 +87,27 @@ class Mastermind
             Mastermind.talk("2. Sign In")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input
-            when "1"
-                Player.sign_up
-            when "2"
-                Player.sign_in
-            else
-                Mastermind.talk("That is not a valid option, try again.\n")
-                Mastermind.player_menu()
+                when "1"
+                    Player.sign_up
+                when "2"
+                    Player.sign_in
+                else
+                    Mastermind.talk("That is not a valid option, try again.\n")
+                    Mastermind.player_menu()
+                end
         else
             Mastermind.talk("1. Player stats")
             Mastermind.talk("2. Sign Out")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input
-        end
-        
-        
+                when "1"
+                    Player.stats
+                when "2"
+                    Player.sign_out
+                else
+                    Mastermind.talk("That is not a valid option, try again.\n")
+                    Mastermind.player_menu()
+            end
         end
     end
 
