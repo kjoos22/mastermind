@@ -30,4 +30,16 @@ class Player
         $player = nil
         Mastermind.player_menu
     end
+
+    def stats
+        Mastermind.talk("#{$player.name}, you have "\
+                        "won #{$player.wins} games, "\
+                        "earning #{$player.mm_points} Mastermind points!\n")
+        Mastermind.player_menu
+    end
+
+    def update_stats(difficulty, round)
+        binding.pry
+
+    end
 end

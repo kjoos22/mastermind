@@ -69,7 +69,8 @@ class Mastermind
         Mastermind.talk("---Difficulty Select---")
         Mastermind.talk("1. Easy\n2. Medium\n3. Hard\n")
         Mastermind.talk("Enter a difficulty #: ", false)
-        case Mastermind.get_input
+        difficulty = Mastermind.get_input
+        case difficulty
             when "1", "2", "3"
                 @game = Game.new(difficulty.to_i)
             else
@@ -85,12 +86,15 @@ class Mastermind
         if !$player
             Mastermind.talk("1. Sign Up")
             Mastermind.talk("2. Sign In")
+            Mastermind.talk("3. Main Menu")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input
                 when "1"
                     Player.sign_up
                 when "2"
                     Player.sign_in
+                when "3"
+                    Mastermind.main_menu
                 else
                     Mastermind.talk("That is not a valid option, try again.\n")
                     Mastermind.player_menu()
@@ -98,12 +102,15 @@ class Mastermind
         else
             Mastermind.talk("1. Player stats")
             Mastermind.talk("2. Sign Out")
+            Mastermind.talk("3. Main Menu")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input
                 when "1"
-                    Player.stats
+                    $player.stats
                 when "2"
                     Player.sign_out
+                when "3"
+                    Mastermind.main_menu
                 else
                     Mastermind.talk("That is not a valid option, try again.\n")
                     Mastermind.player_menu()

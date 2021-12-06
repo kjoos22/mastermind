@@ -17,10 +17,10 @@ class GameAPI
             http.request(req)
         end
         if JSON.parse(res.body)["error"]
-            Mastermind.talk("Error: name taken or invalid password.")
+            Mastermind.talk("Error: name taken or invalid password.\n")
             Mastermind.player_menu
         else
-            Mastermind.talk("Player created.")
+            Mastermind.talk("Player created.\n")
             Mastermind.main_menu
         end
     end

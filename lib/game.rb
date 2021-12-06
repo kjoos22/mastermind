@@ -21,6 +21,9 @@ class Game
         end
         @guesses[@round] = guess
         if guess == @code.join
+            if $player
+                $player.update_stats(@difficulty, @round)
+            end
             Mastermind.talk("CONGRATULATIONS, YOU WIN!")
             Mastermind.talk("Would you like to play again?")
             Mastermind.main_menu
