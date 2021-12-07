@@ -59,6 +59,8 @@ Once installed, navigate to the game_api directory and launch the backend via:
 rails s
 ```
 
+In the event that the server is not listening on localhost:300 (http://127.0.0.1:3000), change the value of the $server variable located in //environment.rb to the address on which the server is listening.
+
 Navigate back to the root directory and start the game via:
 
 Windows:
@@ -99,11 +101,12 @@ This will then start the game in your console.
 
 ## Potential Future Features
 1. Review currently signed in player's match history.
-2. Improved security.
-3. Password reset/recovery.
-4. Challenge mode(s) - scaling difficulties, timed games and/or rounds.
-5. Non-commandline interface.
-6. Alternate modes - colors in lieu of numbers.
+2. Added error handling and messages to inform user for when server is unavailable.
+3. Improved security.
+4. Password reset/recovery.
+5. Challenge mode(s) - scaling difficulties, timed games and/or rounds.
+6. Non-commandline interface.
+7. Alternate modes - colors in lieu of numbers etc.
 
 ## License
 https://github.com/kjoos22/mastermind/blob/main/LICENSE.txt
