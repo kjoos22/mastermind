@@ -22,11 +22,12 @@ class Game
         end
         @guesses[@round] = guess
         if guess == @code.join
+            Mastermind.talk("CONGRATULATIONS, YOU WIN!")
             if $player
                 points = (@@num_rounds[@difficulty] - (@round-1)) * @difficulty
                 $player.update_stats(points)
-            end
-            Mastermind.talk("CONGRATULATIONS, YOU WIN!")            
+                Mastermind.talk("#{$player.name}, you earned #{points} points!")
+            end            
             Mastermind.talk("Would you like to play again?")
             Mastermind.main_menu
         else
