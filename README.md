@@ -6,9 +6,11 @@ A CLI game that is a recreation of the classic board game "Mastermind". The obje
 This version contains the following features beyond the base project prompt:
 1. Selectable difficulties of easy, medium and hard which are 3 digit codes in 8 rounds, 4 digit codes in 10 rounds, and 5 digit codes in 12 rounds, respectively.
 2. Associated Rails based backend for storing players and their stats between play sessions.
-3. Ability to sign up/in/out.
-4. Ability to review currently signed in player's stats, rank (detailed bellow), and top 5 players of all time.
-5. Ability to view game rules.
+3. Player profiles are passworded.
+4. Player names must be unique.
+5. Ability to sign up/in/out.
+6. Ability to review currently signed in player's stats, rank (detailed bellow), and top 5 players of all time.
+7. Ability to view game rules.
 
 ## Scoring and Player Ranks
 Upon winning, players earn points based on the number of guessess remaining and a difficulty multiplier. The formula is:
@@ -97,9 +99,11 @@ This will then start the game in your console.
 
 ## Potential Future Features
 1. Review currently signed in player's match history.
-2. Challenge mode(s) - scaling difficulties, timed games and/or rounds.
-3. Non-commandline interface.
-4. Alternate modes - colors in lieu of numbers.
+2. Improved security.
+3. Password reset/recovery.
+4. Challenge mode(s) - scaling difficulties, timed games and/or rounds.
+5. Non-commandline interface.
+6. Alternate modes - colors in lieu of numbers.
 
 ## License
 https://github.com/kjoos22/mastermind/blob/main/LICENSE.txt
