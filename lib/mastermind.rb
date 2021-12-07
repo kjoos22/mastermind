@@ -9,6 +9,7 @@ class Mastermind
     end
 
     def self.get_input
+        #get player input
         input = gets.chomp
         system("clear")        
         if input == "EXIT" 
@@ -39,6 +40,7 @@ class Mastermind
     end
 
     def self.talk(message, linebreak = true)
+        #display text to player in 'Mastermind speak'
         for char in message.split("") do
             print char.green.bold
             sleep(0.04)
@@ -49,7 +51,8 @@ class Mastermind
     end
 
     def self.play_game
-        Mastermind.talk("CODE: #{@game.code}")
+        #main gameplay loop
+        #Mastermind.talk("CODE: #{@game.code}") #for debugging feedback
         Mastermind.talk("Round #{@game.round} of"\
             " #{Game.num_rounds[@game.difficulty]}!\n")
         Mastermind.talk("Enter a guess, or G to review your guesses: ", false)
@@ -57,12 +60,14 @@ class Mastermind
     end
 
     def self.learn_game
+        #show rules to player
         system("clear")
-        Mastermind.talk("Lorem Ipsum")
+        $learn.each do |message|
+            Mastermind.talk(message)
+        end
+        Mastermind.talk("\nPress Enter to continue...", false)
+        Mastermind.get_input
         Mastermind.main_menu
-        ###############################
-        # TODO: Add game instructions #
-        ###############################
     end
 
     def self.difficulty_menu
@@ -82,6 +87,7 @@ class Mastermind
     end
 
     def self.player_menu
+        #player options - different if a player is currently logged in
         Mastermind.talk("---Player Menu---")
         if !$player
             Mastermind.talk("1. Sign Up")
@@ -105,7 +111,7 @@ class Mastermind
         else
             Mastermind.talk("1. Player stats")
             Mastermind.talk("2. Sign Out")
-            Mastermind.talk("3. Top 5 Playerss")
+            Mastermind.talk("3. Top 5 Players")
             Mastermind.talk("4. Main Menu")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input

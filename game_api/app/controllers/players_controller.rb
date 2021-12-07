@@ -11,11 +11,13 @@ class PlayersController < ApplicationController
     end
 
     def index
+        #all players, ordered by MM points
         players = Player.all.order(mm_points: :desc)
         render json: PlayerSerializer.new(players)
     end
 
     def login
+        #retrieve and return player
         player = Player.find_by(name: params[:name])
         if player && player.authenticate(params[:password])
             render json: {response: "Logged in", player: 

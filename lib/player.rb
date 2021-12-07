@@ -8,6 +8,7 @@ class Player
     end
 
     def self.sign_up
+        #create new player
         Mastermind.talk("Enter player name: ", false)
         name = Mastermind.get_input
         Mastermind.talk("Enter password: ", false)
@@ -17,6 +18,7 @@ class Player
     end
 
     def self.sign_in
+        #sign in, retrieving player from database
         Mastermind.talk("Enter player name: ", false)
         name = Mastermind.get_input
         Mastermind.talk("Enter password: ", false)
@@ -32,6 +34,7 @@ class Player
     end
 
     def self.leaderboard
+        #display top 5 players by points
         players = GameAPI.show_players
         Mastermind.talk("---Top 5 Players---")
         x = 1
@@ -46,6 +49,7 @@ class Player
     end
 
     def stats
+        #display current player's stats (if signed in)
         Mastermind.talk("#{$player.name},") 
         Mastermind.talk("You have won #{$player.wins} games!")
         Mastermind.talk("You have earned #{$player.mm_points} Mastermind points!")

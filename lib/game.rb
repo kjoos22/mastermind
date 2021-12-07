@@ -13,6 +13,7 @@ class Game
     end
 
     def check_guess(guess)
+        #Determine if player guess is correct
         if guess == "G"
             previous_guesses()
             Mastermind.play_game
@@ -36,6 +37,7 @@ class Game
     end
 
     def validate_guess(guess)
+        #Determine if player guess is valid (number, correct # of digits 0-7)
         if guess.length != @@num_digits[@difficulty] || !numeric?(guess)
             Mastermind.talk("Guesses must be #{@@num_digits[@difficulty]}"\
                 " digits, 0-7, try again.")
@@ -54,6 +56,7 @@ class Game
     end
 
     def previous_guesses
+        #Display previous guesses from current game with feedback
         if @guesses == {}
             Mastermind.talk("No previous guesses.")
         end
@@ -69,6 +72,7 @@ class Game
     end
 
     def get_feedback(guess)
+        #Generate feedback for player guess
         correct_digits = 0
         correct_locations = 0
         total_digits = {}
@@ -88,6 +92,7 @@ class Game
     end
 
     def location_feedback(guess, correct_locations, total_digits)
+        #Generate feedback for correctly located digits
         guess.split("").each_with_index do |num, index|            
             if @code.index(num) == nil
                 next
@@ -103,6 +108,7 @@ class Game
     end
 
     def digit_feedback(guess, correct_digits, total_digits)
+        #generate feedback for incorrectly located digits
         guess.split("").each do |num|
             if @code.include?(num) && total_digits[num] > 0
                 correct_digits += 1
@@ -113,6 +119,7 @@ class Game
     end
 
     def provide_feedback
+        #display feedback to user or end game
         if @round > @@num_rounds[@difficulty]
             Mastermind.talk("GAME OVER!")
             Mastermind.talk("The code was: #{@code.join}")

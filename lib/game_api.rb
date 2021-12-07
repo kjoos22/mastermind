@@ -1,12 +1,14 @@
 class GameAPI
     def self.show_players
-        uri = URI("http://127.0.0.1:3000/players")
+        #all players, returned ordered by MM points, descending
+        uri = URI("#{$server}/players")
         response = JSON.parse(Net::HTTP.get(uri))
         response["data"]
     end
 
     def self.create_player(name, password)
-        uri = URI("http://127.0.0.1:3000/players")
+        #save new player to database
+        uri = URI("#{$server}/players")
         req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
         req.body = {"player" =>{"name" => name, "password" => password}}.to_json
         res = Net::HTTP.start(uri.hostname, uri.port) do |http|
@@ -23,7 +25,8 @@ class GameAPI
     end
 
     def self.login(name, password)
-        uri = URI("http://127.0.0.1:3000/players/login")
+        #retrieve palyer from database
+        uri = URI("#{$server}/players/login")
         req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
         req.body = {"name" => name, "password" => password}.to_json
         res = Net::HTTP.start(uri.hostname, uri.port) do |http|
@@ -45,7 +48,8 @@ class GameAPI
     end
 
     def self.update_player_stats
-        uri = URI("http://127.0.0.1:3000/players/update_stats")
+        #save updated player stats
+        uri = URI("#{$server}/players/update_stats")
         req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
         req.body = {"name" => "#{$player.name}",
                                  "mm_points" => $player.mm_points}.to_json
