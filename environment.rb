@@ -20,7 +20,7 @@ $learn =["You want to play Mastermind? I will teach you my game...\n",
         "You have 8 guesses on easy, 10 on medium, and 12 on hard.",
         "After each guess I will give you feedback consisting of the number...",
         "...of correct digits, and the number of correctly located digits.",
-        "Guess 'G', and I will show you your previous guesses with feedback."
+        "Guess 'G', and I will show you your previous guesses with feedback.",
         "If you guess the code correctly, you win!",
         "If you win, you will earn points based on the number of remaining...",
         "...guesses, with a multiplier for the difficulty.",
