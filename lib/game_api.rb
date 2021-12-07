@@ -1,18 +1,14 @@
 class GameAPI
     def self.show_players
-        ##################################
-        # TODO: Remove. Test method only #
-        ##################################
-        url = "http://127.0.0.1:3000/players"
-
-        response = JSON.parse(Net::HTTP.get(URI(url)))
+        uri = URI("http://127.0.0.1:3000/players")
+        response = JSON.parse(Net::HTTP.get(uri))
         response["data"]
     end
 
     def self.create_player(name, password)
         uri = URI("http://127.0.0.1:3000/players")
         req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
-        req.body = {"player" => {"name" => "#{name}", "password" => "#{password}"}}.to_json
+        req.body = {"player" =>{"name" => name, "password" => password}}.to_json
         res = Net::HTTP.start(uri.hostname, uri.port) do |http|
             http.request(req)
         end
@@ -20,7 +16,8 @@ class GameAPI
             Mastermind.talk("Error: name taken or invalid password.\n")
             Mastermind.player_menu
         else
-            Mastermind.talk("Player created.\n")
+            Mastermind.talk("Player created.")
+            $player = Player.new(name, 0, 0)
             Mastermind.main_menu
         end
     end
@@ -28,7 +25,7 @@ class GameAPI
     def self.login(name, password)
         uri = URI("http://127.0.0.1:3000/players/login")
         req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
-        req.body = {"name" => "#{name}", "password" => "#{password}"}.to_json
+        req.body = {"name" => name, "password" => password}.to_json
         res = Net::HTTP.start(uri.hostname, uri.port) do |http|
             http.request(req)
         end

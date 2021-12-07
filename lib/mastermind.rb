@@ -86,7 +86,7 @@ class Mastermind
         if !$player
             Mastermind.talk("1. Sign Up")
             Mastermind.talk("2. Sign In")
-            Mastermind.talk("3. Top 5 Minds")
+            Mastermind.talk("3. Top 5 Players")
             Mastermind.talk("4. Main Menu")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input
@@ -105,7 +105,7 @@ class Mastermind
         else
             Mastermind.talk("1. Player stats")
             Mastermind.talk("2. Sign Out")
-            Mastermind.talk("3. Top 5 Minds")
+            Mastermind.talk("3. Top 5 Playerss")
             Mastermind.talk("4. Main Menu")
             Mastermind.talk("\nEnter an option #: ", false)
             case Mastermind.get_input

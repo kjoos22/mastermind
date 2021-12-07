@@ -33,7 +33,7 @@ class Player
 
     def self.leaderboard
         players = GameAPI.show_players
-        Mastermind.talk("---Top 5 Minds---")
+        Mastermind.talk("---Top 5 Players---")
         x = 1
         players = players[0..4]
         players.each do |player|
