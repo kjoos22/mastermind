@@ -63,7 +63,6 @@ In the event that the server is not listening on localhost:300 (http://127.0.0.1
 
 Navigate back to the root directory and start the game via:
 
-Windows:
 ```bash
 ruby bin/run.rb
 ```
