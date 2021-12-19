@@ -53,10 +53,12 @@ class Mastermind
     def self.play_game
         #main gameplay loop
         #Mastermind.talk("CODE: #{@game.code}") #for debugging feedback
-        Mastermind.talk("Round #{@game.round} of"\
-            " #{Game.num_rounds[@game.difficulty]}!\n")
-        Mastermind.talk("Enter a guess, or G to review your guesses: ", false)
-        @game.check_guess(Mastermind.get_input)
+        # Mastermind.talk("Round #{@game.round} of"\
+        #     " #{Game.num_rounds[@game.difficulty]}!\n")
+        # Mastermind.talk("Enter a guess, or G to review your guesses: ", false)
+        # @game.check_guess(Mastermind.get_input)
+        @game.play_game
+        Mastermind.main_menu
     end
 
     def self.learn_game

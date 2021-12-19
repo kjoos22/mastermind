@@ -1,5 +1,12 @@
+# @guesses = {player1 => {}, player2 => {}}
+# @feedback = {player1 => {}, player2 => {}}
+# @current_turn = 1
+
+
+
+
 class Game
-    attr_accessor :round, :code, :guesses, :feedback, :difficulty
+    attr_accessor :round, :code, :guesses, :feedback, :difficulty, :current_turn
 
     @@num_rounds = {1 => 8, 2 => 10, 3 => 12}
     @@num_digits = {1 => 3, 2 => 4, 3 => 5}
@@ -8,33 +15,60 @@ class Game
         @difficulty = difficulty
         @round = 1
         @code = Random.random_integer(difficulty)
-        @guesses = {}
-        @feedback = {}
+        @guesses = {1 => {}, 2 => {}}
+        @feedback = {1 => {}, 2 => {}}
+        @current_turn = 1
+    end
+
+    def play_game
+        while @round <= Game.num_rounds[@difficulty]
+            Mastermind.talk("Round #{@round} of"\
+                " #{Game.num_rounds[@difficulty]}!\n")
+            Mastermind.talk("Player 1 enter a guess, or G to review your guesses: ",
+                     false)
+            check_guess(Mastermind.get_input)
+            if @current_turn == 0
+                break
+            end
+            @current_turn = 2
+            Mastermind.talk("Round #{@round} of"\
+                " #{Game.num_rounds[@difficulty]}!\n")
+            Mastermind.talk("Player 2 enter a guess, or G to review your guesses: ",
+                     false)
+            check_guess(Mastermind.get_input)
+            @current_turn = 1
+            @round += 1            
+        end
+        if @current_turn != 0        
+            Mastermind.talk("GAME OVER!")
+            Mastermind.talk("The code was: #{@code.join}")
+            Mastermind.talk("Would you like to play again?")
+        end
     end
 
     def check_guess(guess)
         #Determine if player guess is correct
-        if guess == "G"
-            previous_guesses()
-            Mastermind.play_game
-        else
-            validate_guess(guess)
-        end
-        @guesses[@round] = guess
+        # if guess == "G"
+        #     previous_guesses()
+        #     Mastermind.play_game
+        # else
+        validate_guess(guess)
+        # end
+        @guesses[@current_turn][@round] = guess
         if guess == @code.join
-            Mastermind.talk("CONGRATULATIONS, YOU WIN!")
+            Mastermind.talk("CONGRATULATIONS PLAYER#{current_turn}, YOU WIN!")
             if $player
                 points = (@@num_rounds[@difficulty] - (@round-1)) * @difficulty
                 $player.update_stats(points)
                 Mastermind.talk("#{$player.name}, you earned #{points} points!")
             end            
             Mastermind.talk("Would you like to play again?")
-            Mastermind.main_menu
+            @round = @@num_rounds[@difficulty] + 1
+            @current_turn = 0
         else
             get_feedback(guess)
             provide_feedback()
         end
-        Mastermind.play_game
     end
 
     def validate_guess(guess)
@@ -58,16 +92,16 @@ class Game
 
     def previous_guesses
         #Display previous guesses from current game with feedback
-        if @guesses == {}
+        if @guesses[current_turn] == {}
             Mastermind.talk("No previous guesses.")
         end
-        @guesses.each do |guess|
+        @guesses[current_turn].each do |guess|
             Mastermind.talk("Round #{guess[0]}: #{guess[1]} | ", false)
             Mastermind.talk(
-                "Correct digits: #{@feedback[guess[0]][:correct_digits]}",false)
+                "Correct digits: #{@feedback[current_turn][guess[0]][:correct_digits]}",false)
             Mastermind.talk(
                 " | Correctly located digits: "\
-                "#{@feedback[guess[0]][:correct_locations]}") 
+                "#{@feedback[current_turn][guess[0]][:correct_locations]}") 
         end
         puts ""        
     end
@@ -77,6 +111,10 @@ class Game
         correct_digits = 0
         correct_locations = 0
         total_digits = {}
+        # @code.each do |num|
+        #     total_digits[num] += 1
+        # end
+
         guess.split("").each do |num|
             total_digits[num] = @code.count(num)
             if total_digits[num] > guess.count(num)
@@ -87,9 +125,9 @@ class Game
             location_feedback(guess, correct_locations, total_digits)
         correct_digits, total_digits = 
             digit_feedback(guess, correct_digits, total_digits)
-        @feedback[@round] = {correct_digits: correct_digits,
+        @feedback[current_turn][@round] = {correct_digits: correct_digits,
                     correct_locations: correct_locations}
-        @round += 1
+        
     end
 
     def location_feedback(guess, correct_locations, total_digits)
@@ -121,18 +159,13 @@ class Game
 
     def provide_feedback
         #display feedback to user or end game
-        if @round > @@num_rounds[@difficulty]
-            Mastermind.talk("GAME OVER!")
-            Mastermind.talk("The code was: #{@code.join}")
-            Mastermind.talk("Would you like to play again?")
-            Mastermind.main_menu
-        end
-        Mastermind.talk("You guessed: #{@guesses[@round - 1]}")
+        
+        Mastermind.talk("You guessed: #{@guesses[current_turn][@round - 1]}")
         Mastermind.talk(
-            "Correct digits: #{@feedback[@round - 1][:correct_digits]}")
+            "Correct digits: #{@feedback[current_turn][@round - 1][:correct_digits]}")
         Mastermind.talk(
             "Correctly located digits: " +
-            "#{@feedback[@round - 1][:correct_locations]}\n")
+            "#{@feedback[current_turn][@round - 1][:correct_locations]}\n")
     end
 
     def self.num_rounds
